@@ -9,8 +9,6 @@ import java.util.*;
  * @version (2024.10.23)
  */
 public class Calculator {
-    
-    
     public static void main(String[] args) {
         HashMap<String, Integer> student_grade = new HashMap<>();
 
@@ -18,10 +16,10 @@ public class Calculator {
 
         if (student_grade.isEmpty()) {
             return;
+        } else {
+            int total_grade = calculateTotalScore(student_grade);
+            output(student_grade, total_grade);
         }
-
-        int total_grade = calculateTotalScore(student_grade);
-        output(student_grade, total_grade);
     }
 
     /**
@@ -38,65 +36,62 @@ public class Calculator {
 
             if (!scanner.hasNextLine()) {
                 System.out.println("파일의 내용이 존재하지 않습니다.");
+
                 return;
             }
 
             while (scanner.hasNextLine()) {
                 String words = scanner.nextLine();
 
-                String[] data = words.split(" ");
+                try {
+                    String[] data = words.split(" ");
 
-                if (data.length != 2) {
-                    System.out.println("이름과 점수 사이에 띄어쓰기가 없거나 잘못된 형식입니다.");
-                    break;
-                }
+                    if (data.length != 2) {
+                        System.out.println("이름과 점수 사이에 띄어쓰기가 없거나 잘못된 형식입니다.");
 
-                String name = data[0];
-
-                boolean isThereSpecialInName = false;
-                for (int i = 0; i < name.length(); i++) {
-                    char ch = name.charAt(i);
-
-                    if (!Character.isLetter(ch) && ch != ' ') {
-                        isThereSpecialInName = true;
                         break;
                     }
-                }
 
-                if (isThereSpecialInName) {
-                    System.out.println("이름에 특수 문자 혹은 숫자가 포함되어 있습니다.");
-                    break;
-                }
+                    String name = data[0];
+                    String gradeStr = data[1];
 
-                String gradeStr = data[1];
+                    boolean isThereSpecialInName = false;
+                    for (int i = 0; i < name.length(); i++) {
+                        char ch = name.charAt(i);
 
-                boolean isThereCharInGrade = false;
-                for (int i = 0; i < gradeStr.length(); i++) {
-                    if (!Character.isDigit(gradeStr.charAt(i))) {
-                        isThereCharInGrade = true;
+                        if (!Character.isLetter(ch) && ch != ' ') {
+                            isThereSpecialInName = true;
+
+                            break;
+                        }
+                    }
+
+                    if (isThereSpecialInName) {
+                        System.out.println("이름에 특수 문자 혹은 숫자가 포함되어 있습니다.");
+
                         break;
                     }
-                }
 
-                if (isThereCharInGrade) {
-                    System.out.println("점수에는 숫자만 기입할 수 있습니다.");
+                    try {
+                        Integer grade = Integer.parseInt(gradeStr);
+                        student_grade.put(name, grade);
+                    } catch (NumberFormatException e) {
+                        System.out.println("점수에는 숫자만 기입할 수 있습니다.");
+
+                        break;
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("입력 처리 중 오류 발생");
+
                     break;
-                } else {
-                    Integer grade = Integer.parseInt(gradeStr);
-                    student_grade.put(name, grade);
                 }
             }
             scanner.close();
             filereader.close();
-
         } catch (IOException e) {
             System.out.println("입출력 오류 발생!");
-        } catch (NumberFormatException e) {
-            System.out.println("문자형은 숫자형으로 변경할 수 없습니다.");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("문자형은 숫자형으로 변경할 수 없습니다.");
         }
-
     }
 
     /**
@@ -108,10 +103,7 @@ public class Calculator {
     public static int calculateTotalScore(HashMap<String, Integer> student_grade) {
         int total_grade = 0;
 
-        Iterator<String> iter = student_grade.keySet().iterator();
-        while (iter.hasNext()) {
-            String key = iter.next();
-            Integer value = student_grade.get(key);
+        for (Integer value : student_grade.values()) {
             total_grade += value;
         }
 
@@ -125,16 +117,10 @@ public class Calculator {
      * @return    학생들의 점수를 순서대로 정렬한 리스트(ArrayList)
      */
     public static ArrayList<String> calculateRanking(HashMap<String, Integer> student_grade) {
-        String topStudent = "";
-        String bottomStudent = "";
-        int maxScore = Integer.MIN_VALUE;
-        int minScore = Integer.MAX_VALUE;
-
         ArrayList<String> sortedStudents = new ArrayList<>();
         List<String> keys = new ArrayList<>(student_grade.keySet());
 
-        for (int i = 0; i < keys.size(); i++) {
-            String key = keys.get(i);
+        for (String key : keys) {
             int score = student_grade.get(key);
             int index = 0;
 
@@ -155,7 +141,6 @@ public class Calculator {
      * @return    void
      */
     public static void output(HashMap<String, Integer> student_grade, int total_grade) {
-
         ArrayList<String> sortedStudents = calculateRanking(student_grade);
 
         System.out.println("------ 학생 순위 ------");
