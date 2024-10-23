@@ -23,7 +23,7 @@ public class Calculator {
     }
 
     /**
-     * inputFile()는 "C:\\temp\\inputData2024.txt"경로에 있는 파일을 읽고 HashMap인 student_grade에 저장합니다.
+     * "C:\\temp\\inputData2024.txt"경로에 있는 파일을 읽고 HashMap인 student_grade에 저장합니다.
      *
      * @param  student_grade  학생이름과 성적 데이터
      * @return    void
@@ -95,7 +95,7 @@ public class Calculator {
     }
 
     /**
-     * calculateTotalScore() 메소드는 student_grade에 있는 학생 이름(key)으로 점수(value)를 받아 total_grade에 합산하여 리턴합니다.
+     * student_grade에 있는 학생 이름(key)으로 점수(value)를 받아 total_grade에 합산하여 리턴합니다.
      *
      * @param  student_grade  학생이름과 성적 데이터
      * @return    student_grade의 점수(value)를 모두 더한 정수
@@ -111,7 +111,7 @@ public class Calculator {
     }
 
     /**
-     * calculateRanking() 메소드는 student_grade에 있는 학생 이름(key)으로 점수(value)를 받아 점수(value)를 비교하여 점수 순서대로 sortedStudents에 저장합니다.
+     * student_grade에 있는 학생 이름(key)으로 점수(value)를 받아 점수(value)를 비교하여 점수 순서대로 sortedStudents에 저장합니다.
      *
      * @param  student_grade  학생이름과 성적 데이터
      * @return    학생들의 점수를 순서대로 정렬한 리스트(ArrayList)
@@ -135,7 +135,7 @@ public class Calculator {
     }
 
     /**
-     * output() 메소드는 calculateTotalScore() 와 calculateRanking()에서 계산한 결과를 출력합니다.
+     * calculateTotalScore() 와 calculateRanking()에서 계산한 결과를 출력합니다.
      *
      * @param  student_grade  학생이름과 성적 데이터, total_grade 총점
      * @return    void
