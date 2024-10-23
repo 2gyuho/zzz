@@ -5,6 +5,12 @@ import java.util.*;
  * Calculator 클래스는 학생들의 이름과 성적을 입력 파일로부터 받아와
  * 성적을 처리하고, 총점,평균, 학생들의 점수 순위를 계산하여 출력하는 프로그램입니다.
  * 
+ * 주요 기능:
+ * 파일에서 학생 이름과 점수를 입력받아 유효성을 검사
+ * 학생들의 점수를 합산하고 총점 및 평균을 계산
+ * 학생들의 점수를 순위별로 정렬하여 출력
+ * 최고점 및 최저점 학생을 출력
+ * 
  * @author (2023320015 정은비 2021320011 이규호 2021320021서유정 2020635040 임성훈)
  * @version (2024.10.23)
  */
@@ -18,7 +24,7 @@ public class Calculator {
             return;
         } else {
             int total_grade = calculateTotalScore(student_grade);
-            output(student_grade, total_grade);
+            printStudentData(student_grade, total_grade);
         }
     }
 
@@ -140,7 +146,7 @@ public class Calculator {
      * @param  student_grade  학생이름과 성적 데이터, total_grade 총점
      * @return    void
      */
-    public static void output(HashMap<String, Integer> student_grade, int total_grade) {
+    public static void printStudentData(HashMap<String, Integer> student_grade, int total_grade) {
         ArrayList<String> sortedStudents = calculateRanking(student_grade);
 
         System.out.println("------ 학생 순위 ------");
